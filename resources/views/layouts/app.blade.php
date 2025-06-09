@@ -13,6 +13,7 @@
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'WFS Manage')</title>
 
@@ -54,6 +55,8 @@
 
     <!-- Page CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/cards-advance.css') }}" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     @include('layouts.style')
 
@@ -157,9 +160,36 @@
 
     <!-- Page JS -->
     <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
+   <!-- jQuery (always include before DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 
     @include('layouts.script')
 
     @yield('scripts')
+    <script>
+      window.showToast = function (type = 'success', message = 'Done!', title = '') {
+        toastr.options = {
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+            timeOut: 5000
+        };
+        if (type === 'success') {
+            toastr.success(message, title);
+        } else if (type === 'error') {
+            toastr.error(message, title);
+        } else if (type === 'info') {
+            toastr.info(message, title);
+        } else if (type === 'warning') {
+            toastr.warning(message, title);
+        }
+      };
+
+    </script>
   </body>
 </html>
