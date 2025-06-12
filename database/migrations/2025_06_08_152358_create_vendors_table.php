@@ -21,10 +21,12 @@ return new class extends Migration
             $table->string('state')->nullable();
             $table->string('country')->nullable();
             $table->string('zip_code')->nullable();
+            $table->string('phone')->nullable();
             $table->string('contact_name')->nullable();
             $table->string('contact_email')->nullable();
             $table->string('other_method')->nullable();
             $table->string('map')->nullable();
+            $table->string('notes')->nullable();
             $table->string('paymet_term')->nullable();
             $table->string('currecncy')->default('USD');
 

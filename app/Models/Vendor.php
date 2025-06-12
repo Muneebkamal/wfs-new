@@ -17,6 +17,7 @@ class Vendor extends Model
         'state',
         'country',
         'zip_code',
+        'phone',
         'contact_name',
         'contact_email',
         'other_method',

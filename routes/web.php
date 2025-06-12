@@ -8,6 +8,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VendorController;
+use App\Http\Controllers\WalmartItemCronController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -35,11 +36,23 @@ Route::middleware(['auth'])->group(function () {
     //settings routes
     Route::resource('/settings',SettingsController::class);
     //vendors rounds
+    //payment terms routes
     Route::get('payment/terms',[VendorController::class,'paymentTermIndex'])->name('payment-terms.index');
     Route::post('payment/terms/store',[VendorController::class,'paymentTermsStore'])->name('payment-terms.store');
+    //ship via routes
     Route::get('ship/via',[VendorController::class,'shipViaIndex'])->name('ship-via.index');
     Route::post('ship/via/store',[VendorController::class,'ShipViaStore'])->name('ship-via.store');
-    
+    //locations routes
+    Route::get('locations',[VendorController::class,'locationIndex'])->name('locations.index');
+    Route::get('locations/data', [VendorController::class, 'getLocationData'])->name('locations.data');
+    Route::get('locations/create', [VendorController::class, 'createLocation'])->name('locations.create');
+    Route::post('locations/store', [VendorController::class, 'storeLocation'])->name('locations.store');
+    Route::get('locations/edit/{id?}', [VendorController::class, 'editLocation'])->name('locations.edit');
+    Route::put('locations/update/{id?}', [VendorController::class, 'updateLocation'])->name('locations.update');
+
+
+    //vendors routes
+    Route::resource('/vendors', VendorController::class);
     //view routes
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
@@ -61,4 +74,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sales-report-by-state', [ReportController::class, 'SalesReportByState'])->name('reconciliation.report.sales-report-by-state');
     Route::get('/montly-report', [ReportController::class, 'monthlyReport'])->name('reconciliation.report.montly-report');
     Route::get('/inventory-valuation-report', [ReportController::class, 'inventoryValuationReport'])->name('reconciliation.report.inventory-valuation-report');
+    //cron jobs
+    Route::get('/walmart-item-cron', [WalmartItemCronController::class, 'fetchWalmartItems'])->name('walmart.item.cron');
 });

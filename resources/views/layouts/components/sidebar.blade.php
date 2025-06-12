@@ -234,19 +234,22 @@
                     </a>
                 </li>
 
-                <li class="menu-item">
+                @php
+                    $isVendorMenuOpen = request()->is('vendors*') || request()->is('locations*') || request()->is('payment/terms*') || request()->is('ship/via*');
+                @endphp
+                <li class="menu-item {{ $isVendorMenuOpen ? 'open' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon icon-base ti tabler-building-store"></i>
                     <div data-i18n="Vendors">Vendors</div>
                     </a>
                     <ul class="menu-sub">
-                    <li class="menu-item">
-                        <a href="#" class="menu-link">
+                    <li class="menu-item {{ request()->is('vendors*') ? 'active' : '' }}">
+                        <a href="{{ route('vendors.index') }}" class="menu-link">
                         <div data-i18n="Vendors">Vendors</div>
                         </a>
                     </li>
-                    <li class="menu-item">
-                        <a href="#" class="menu-link">
+                    <li class="menu-item {{ request()->is('locations*') ? 'active' : '' }}">
+                        <a href="{{ route('locations.index') }}" class="menu-link">
                         <div data-i18n="Locations">Locations</div>
                         </a>
                     </li>

@@ -189,6 +189,15 @@
             toastr.warning(message, title);
         }
       };
+        @if(session('success'))
+          toastr.success("{{ session('success') }}");
+        @elseif(session('error'))
+          toastr.error("{{ session('error') }}");
+        @elseif(session('info'))
+          toastr.info("{{ session('info') }}");
+        @elseif(session('warning'))
+          toastr.warning("{{ session('warning') }}");
+        @endif
 
     </script>
   </body>
